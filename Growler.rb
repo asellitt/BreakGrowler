@@ -14,6 +14,10 @@ class Growler
    end
    
    def notify(title, message)
-      @growl.notify("#{title} notification", title, message)
+      # default the priority, make the notification sticky
+      priority = 0 
+      sticky = true
+      
+      @growl.notify("#{title} notification", title, message, priority, sticky)
    end
 end
