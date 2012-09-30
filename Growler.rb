@@ -15,6 +15,6 @@ class Growler
    end
    
    def notify(title, message)
-      @growl.notify("#{title} notification", title, message)
+      @growl.notify("#{title} notification", title, message, 0, true)
    end
 end
