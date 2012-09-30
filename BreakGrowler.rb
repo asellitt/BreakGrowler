@@ -16,12 +16,13 @@ if __FILE__ == $PROGRAM_NAME
       growler.register(x['title'])
    }
    
-   # send the notifications
+   # schedule the notifications
    config.settings['breaks'].each { |x| 
       scheduler.every x['interval'] do
          growler.notify(x['title'], x['message'])
       end
    }
    
+   # ensure that this doesnt exit unless forced to
    scheduler.join
 end
