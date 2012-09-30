@@ -2,26 +2,22 @@
 require 'ruby-growl'
 require 'ruby-growl/ruby_logo'
 require_relative 'AppConfig'
+require_relative 'Growler'
 
 if __FILE__ == $PROGRAM_NAME
    config = AppConfig.new('config.yml')  
+   growler = Growler.new(
+         config.settings['growl']['host'], 
+         config.settings['growl']['application']
+   );
    
-   puts config.settings['growl']['host']
-   puts config.settings['growl']['application']
-   config.settings['breaks'].each { |x| puts x['title'] }
-   
-   # growl for each break
-   g = Growl.new(config.settings['growl']['host'], config.settings['growl']['application'])
+   # register the breaks
    config.settings['breaks'].each { |x| 
-      # register notification
-      g.add_notification(x['title'] + 'notification', config.settings['growl']['application'] + ' Notification', Growl::RUBY_LOGO_PNG) 
+      growler.register(x['title'])
    }
    
+   # send the notifications
    config.settings['breaks'].each { |x| 
-      # get time for each break
-      puts "interval: #{x['interval']['time']} #{x['interval']['unit']}"
-      puts "duration: #{x['duration']['time']} #{x['duration']['unit']}"
-      
-      g.notify(x['title'] + 'notification', x['title'], x['message'])
+      growler.notify(x['title'], x['message'])
    }
 end
