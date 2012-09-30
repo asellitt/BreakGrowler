@@ -7,14 +7,12 @@ breaks:
    - {
       title:      Vision,
       message:    Look over there,
-      duration:   20s,
       interval:   20m
    }
    
    - {
       title:      Stretch,
       message:    Go for a walk,
-      duration:   1m,
       interval:   1h
    }
 ...
